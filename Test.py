@@ -1,44 +1,37 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import csv
 
 
 
-bitfile = pd.read_csv('bitcoin.csv', parse_dates=['Date'])
-ethfile = pd.read_csv('ethereum.csv', parse_dates=['Date'])
+allfile = pd.read_csv('AllCrypto.csv', parse_dates=['Date'])
 
 
 
-print(bitfile.info(), ethfile.info())
+print(allfile.info())
 
 #(New Value - Old Value) / Old Value * 100 = percentage change
 
 
-
-
-
 plt.show()
-plt.savefig('ethpercent.png')
 
-ethfile.plot(x = "Date", y = ['High', 'Low'])
+allfile.plot(x = "Date", y = ['Ethereum High', 'Ethereum Low'])
 plt.show()
-plt.savefig('ethgraph.png')
+plt.savefig('ethereum_graph.png')
 
 
-bitfile.columns = bitfile.columns.str.strip()
-
-print(bitfile.info())
-
-bitfile["BitcoinPercentDif"] = ((bitfile['Bitcoin High'] - bitfile['Bitcoin Low']) / bitfile['Bitcoin Low'] * 100)
-
-bitfile["EthereumPercentDif"]= ((bitfile['Ethereum High'] - bitfile['Ethereum Low']) / bitfile['Ethereum Low'] * 100)
-
-print(bitfile['Date'])
+allfile.columns = allfile.columns.str.strip()
 
 
+allfile["BitcoinPercentDif"] = ((allfile['Bitcoin High'] - allfile['Bitcoin Low']) / allfile['Bitcoin Low'] * 100)
 
-bitfile.plot(x = 'Date', y = ["BitcoinPercentDif", "EthereumPercentDif"])
+allfile["EthereumPercentDif"]= ((allfile['Ethereum High'] - allfile['Ethereum Low']) / allfile['Ethereum Low'] * 100)
+
+print(allfile['Date'])
+
+
+
+allfile.plot(x = 'Date', y = ["BitcoinPercentDif", "EthereumPercentDif"])
 plt.title('crypto change ')
 plt.xlabel('Date')
 plt.xlim('2024-12-31', '2024-10-01')  
@@ -47,7 +40,7 @@ plt.show()
 plt.savefig('percentDECOCT.png')
 
 
-bitfile.plot(x = 'Date', y = ["BitcoinPercentDif", "EthereumPercentDif"])
+allfile.plot(x = 'Date', y = ["BitcoinPercentDif", "EthereumPercentDif"])
 plt.title('crypto change ')
 plt.xlabel('Date')
 plt.xlim('2024-09-30', '2024-07-01')  
@@ -55,7 +48,7 @@ plt.ylabel('Percent Difference')
 plt.show()
 plt.savefig('percentSEPJUL.png')
 
-bitfile.plot(x = 'Date', y = ["BitcoinPercentDif", "EthereumPercentDif"])
+allfile.plot(x = 'Date', y = ["BitcoinPercentDif", "EthereumPercentDif"])
 plt.title('crypto change ')
 plt.xlabel('Date')
 plt.xlim('2024-06-30', '2024-04-01')  
@@ -63,7 +56,7 @@ plt.ylabel('Percent Difference')
 plt.show()
 plt.savefig('percentMAYAPR.png')
 
-bitfile.plot(x = 'Date', y = ["BitcoinPercentDif", "EthereumPercentDif"])
+allfile.plot(x = 'Date', y = ["BitcoinPercentDif", "EthereumPercentDif"])
 plt.title('crypto change ')
 plt.xlabel('Date')
 plt.xlim('2024-03-30', '2024-01-01')  
@@ -71,16 +64,40 @@ plt.ylabel('Percent Difference')
 plt.show()
 plt.savefig('percentMARJAN.png')
 
-print('The average Bitcoin price is', sum(bitfile['Bitcoin Open']) / len(bitfile['Bitcoin Open']))
-print('The average Ethereum price is',sum(bitfile['Ethereum Open']) / len(bitfile['Ethereum Open']))
+print('The average Bitcoin price is', sum(allfile['Bitcoin Open']) / len(allfile['Bitcoin Open']))
+print('The average Ethereum price is',sum(allfile['Ethereum Open']) / len(allfile['Ethereum Open']))
 
-bitfile['Bithigh']= sorted(bitfile['BitcoinPercentDif'], reverse=True)
-Bithigh = bitfile['Bithigh'][:10]
+
+
+allfile['Bithigh']= sorted(allfile['BitcoinPercentDif'], reverse=True)
+Bithigh = allfile['Bithigh'][:10]
 print(Bithigh)
 
-bitfile['Ethhigh']= sorted(bitfile['EthereumPercentDif'], reverse=True)
-Ethhigh = bitfile['Ethhigh'][:10]
-print(Ethhigh)
+# Get the top 10 largest values and their indices
+top_indices = allfile['BitcoinPercentDif'].nlargest(10).index
+top_data = allfile.loc[top_indices,['BitcoinPercentDif', 'Date']]
+
+plt.figure(figsize=(10, 5))
+plt.bar(top_data['Date'], top_data['BitcoinPercentDif'], color='black')
+
+# Labels and title
+plt.xlabel("Date")
+plt.ylabel("Bitcoin Percent Difference")
+plt.title("Top Bitcoin Percent Differences by Date")
+plt.xticks(rotation=45)  # Rotate x-axis labels for readability
+
+plt.show()
+plt.savefig('Bitcoin_Highest_Percentage.png')
+
+
+print("Top Values and Their Indices:")
+print(top_data)
+
+
+
+#allfile['Ethhigh']= sorted(allfile['EthereumPercentDif'], reverse=True)
+#Ethhigh = allfile['Ethhigh'][:10]
+#print(Ethhigh)
 
 
 
