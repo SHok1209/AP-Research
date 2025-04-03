@@ -173,8 +173,6 @@ plt.xticks(rotation=45)  # Rotate x-axis labels for readability
 
 plt.show()
 plt.savefig('Bitcoin_Highest_Percentage.png')
-
-
 print("Top Values and Their Indices:")
 print(top_data)
 
