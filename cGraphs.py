@@ -10,14 +10,6 @@ allfile = pd.read_csv('Crypto.csv', parse_dates=['Date'])
 
 print(allfile.info())
 
-#(New Value - Old Value) / Old Value * 100 = percentage change
-
-
-plt.show()
-
-allfile.plot(x = "Date", y = ['Ethereum High', 'Ethereum Low'])
-plt.show()
-plt.savefig('ethereum_graph.png')
 
 
 allfile.columns = allfile.columns.str.strip()
@@ -43,6 +35,16 @@ allfile["LitecoinPercentDif"]= ((allfile['Litecoin High'] - allfile['Litecoin Lo
 
 allfile["DashPercentDif"]= ((allfile['Dash High'] - allfile['Dash Low']) / allfile['Dash Low'] * 100)
 print(allfile['Date'])
+#######################################################################
+
+allfile.plot(x = 'Date', y = ["Bitcoin High", "Ethereum High", 'Dogecoin High', 'Solana High', 'Binance High', 'Cardano High', 'Avalanche High', 'Litecoin High', 'Monero High', 'Dash High'])
+plt.title('crypto change ')
+plt.xlabel('Date')
+plt.xlim('2024-12-31', '2024-12-01')  
+plt.ylabel('Percent Difference')
+plt.show()
+plt.savefig('AllOfDEC.png')
+
 
 #######################################################################
 

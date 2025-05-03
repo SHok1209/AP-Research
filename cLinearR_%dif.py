@@ -45,7 +45,7 @@ def aBitcoin_linear_regression_prediction_graph(data):
     # Make predictions for the entire dataset
     predicted_prices = model.predict(X)
 
-    # Plot the actual and predicted prices
+    
     plt.figure(figsize=(12, 6))
     plt.plot(data['Date'], data['BitcoinPercentDif'], label='Actual Price', color='blue')
     plt.plot(data['Date'], predicted_prices, label='Predicted Price (Linear Regression)', color='red', linestyle='--')
@@ -54,10 +54,8 @@ def aBitcoin_linear_regression_prediction_graph(data):
     plt.ylabel('Price')
     plt.legend()
     plt.grid(True)
-
-    #Make sure to save the figure, or show it.
-    plt.savefig('aBitcoinPercentDif_Linear_Regression_Graph.png') #saves the figure
-    plt.show() #shows the figure.
+    plt.savefig('aBitcoinPercentDif_Linear_Regression_Graph.png') 
+    plt.show() 
 
 ################################################################# Binance
 
